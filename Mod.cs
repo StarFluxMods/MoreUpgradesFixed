@@ -16,7 +16,7 @@ namespace MoreUpgradesFixed
     {
         public const string MOD_GUID = "com.starfluxgames.moreupgradesfixed";
         public const string MOD_NAME = "More Upgrades Fixed";
-        public const string MOD_VERSION = "0.1.0";
+        public const string MOD_VERSION = "0.1.1";
         public const string MOD_AUTHOR = "StarFluxGames";
         public const string MOD_GAMEVERSION = ">=1.2.0";
 
@@ -24,8 +24,10 @@ namespace MoreUpgradesFixed
         internal static PreferenceManager preferenceManager;
 
         internal static string WORKSTATION_TO_FREEZER = "WORKSTATION_TO_FREEZER";
+
         internal static string COMBINER_TO_PORTIONER = "COMBINER_TO_PORTIONER";
-        internal static string TABLE_CYCLE = "TABLE_CYCLE";
+
+        // internal static string TABLE_CYCLE = "TABLE_CYCLE";
         internal static string SHOE_CYCLE = "SHOE_CYCLE";
         internal static string UTILITY_CYCLE = "UTILITY_CYCLE";
         internal static string MOP_CYCLE = "MOP_CYCLE";
@@ -56,6 +58,7 @@ namespace MoreUpgradesFixed
                 Portioner.Upgrades = new List<Appliance> { Combiner };
             }
 
+            /*
             if (preferenceManager.GetPreference<PreferenceBool>(TABLE_CYCLE).Value)
             {
                 Appliance TableBar = GameData.Main.Get<Appliance>(ApplianceReferences.TableBar);
@@ -68,6 +71,7 @@ namespace MoreUpgradesFixed
                 TableBasicCloth.Upgrades = new List<Appliance> { TableFancyCloth };
                 TableFancyCloth.Upgrades = new List<Appliance> { TableBar };
             }
+            */
 
             if (preferenceManager.GetPreference<PreferenceBool>(SHOE_CYCLE).Value)
             {
@@ -115,7 +119,7 @@ namespace MoreUpgradesFixed
             preferenceManager = new PreferenceManager(MOD_GUID);
             preferenceManager.RegisterPreference(new PreferenceBool(WORKSTATION_TO_FREEZER, false));
             preferenceManager.RegisterPreference(new PreferenceBool(COMBINER_TO_PORTIONER, false));
-            preferenceManager.RegisterPreference(new PreferenceBool(TABLE_CYCLE, false));
+            //preferenceManager.RegisterPreference(new PreferenceBool(TABLE_CYCLE, false));
             preferenceManager.RegisterPreference(new PreferenceBool(SHOE_CYCLE, false));
             preferenceManager.RegisterPreference(new PreferenceBool(UTILITY_CYCLE, false));
             preferenceManager.RegisterPreference(new PreferenceBool(MOP_CYCLE, false));
