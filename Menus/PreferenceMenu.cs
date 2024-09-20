@@ -17,13 +17,10 @@ namespace MoreUpgradesFixed.Menus
         private bool isMainMenu;
 
         private Option<bool> WORKSTATION_TO_FREEZER = new Option<bool>(new List<bool> { true, false }, Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.WORKSTATION_TO_FREEZER).Value, new List<string> { "Enabled", "Disabled" });
-
         private Option<bool> COMBINER_TO_PORTIONER = new Option<bool>(new List<bool> { true, false }, Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.COMBINER_TO_PORTIONER).Value, new List<string> { "Enabled", "Disabled" });
-
-        //private Option<bool> TABLE_CYCLE = new Option<bool>(new List<bool> { true, false }, Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.TABLE_CYCLE).Value, new List<string> { "Enabled", "Disabled" });
         private Option<bool> SHOE_CYCLE = new Option<bool>(new List<bool> { true, false }, Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.SHOE_CYCLE).Value, new List<string> { "Enabled", "Disabled" });
         private Option<bool> UTILITY_CYCLE = new Option<bool>(new List<bool> { true, false }, Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.UTILITY_CYCLE).Value, new List<string> { "Enabled", "Disabled" });
-        private Option<bool> MOP_CYCLE = new Option<bool>(new List<bool> { true, false }, Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.MOP_CYCLE).Value, new List<string> { "Enabled", "Disabled" });
+        private Option<int> MOP_CYCLE = new Option<int>(new List<int> { 0, 1, 2 }, Mod.preferenceManager.GetPreference<PreferenceInt>(Mod.MOP_CYCLE).Value, new List<string> { "Combined", "Separated", "Disabled" });
 
         public override void Setup(int player_id)
         {
@@ -53,18 +50,6 @@ namespace MoreUpgradesFixed.Menus
                     Mod.preferenceManager.Save();
                 };
 
-                /*
-                New<SpacerElement>(true);
-
-                AddLabel("Table Cycle");
-                AddSelect(TABLE_CYCLE);
-                TABLE_CYCLE.OnChanged += delegate(object _, bool result)
-                {
-                    Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.TABLE_CYCLE).Set(result);
-                    Mod.preferenceManager.Save();
-                };
-                */
-
                 New<SpacerElement>(true);
 
                 AddLabel("Shoe Cycle");
@@ -89,9 +74,9 @@ namespace MoreUpgradesFixed.Menus
 
                 AddLabel("Mop Cycle");
                 AddSelect(MOP_CYCLE);
-                MOP_CYCLE.OnChanged += delegate(object _, bool result)
+                MOP_CYCLE.OnChanged += delegate(object _, int result)
                 {
-                    Mod.preferenceManager.GetPreference<PreferenceBool>(Mod.MOP_CYCLE).Set(result);
+                    Mod.preferenceManager.GetPreference<PreferenceInt>(Mod.MOP_CYCLE).Set(result);
                     Mod.preferenceManager.Save();
                 };
             }

@@ -16,7 +16,7 @@ namespace MoreUpgradesFixed
     {
         public const string MOD_GUID = "com.starfluxgames.moreupgradesfixed";
         public const string MOD_NAME = "More Upgrades Fixed";
-        public const string MOD_VERSION = "0.1.1";
+        public const string MOD_VERSION = "0.1.2";
         public const string MOD_AUTHOR = "StarFluxGames";
         public const string MOD_GAMEVERSION = ">=1.2.0";
 
@@ -24,10 +24,7 @@ namespace MoreUpgradesFixed
         internal static PreferenceManager preferenceManager;
 
         internal static string WORKSTATION_TO_FREEZER = "WORKSTATION_TO_FREEZER";
-
         internal static string COMBINER_TO_PORTIONER = "COMBINER_TO_PORTIONER";
-
-        // internal static string TABLE_CYCLE = "TABLE_CYCLE";
         internal static string SHOE_CYCLE = "SHOE_CYCLE";
         internal static string UTILITY_CYCLE = "UTILITY_CYCLE";
         internal static string MOP_CYCLE = "MOP_CYCLE";
@@ -58,21 +55,6 @@ namespace MoreUpgradesFixed
                 Portioner.Upgrades = new List<Appliance> { Combiner };
             }
 
-            /*
-            if (preferenceManager.GetPreference<PreferenceBool>(TABLE_CYCLE).Value)
-            {
-                Appliance TableBar = GameData.Main.Get<Appliance>(ApplianceReferences.TableBar);
-                Appliance TableCheapMetal = GameData.Main.Get<Appliance>(ApplianceReferences.TableCheapMetal);
-                Appliance TableBasicCloth = GameData.Main.Get<Appliance>(ApplianceReferences.TableBasicCloth);
-                Appliance TableFancyCloth = GameData.Main.Get<Appliance>(ApplianceReferences.TableFancyCloth);
-
-                TableBar.Upgrades = new List<Appliance> { TableCheapMetal };
-                TableCheapMetal.Upgrades = new List<Appliance> { TableBasicCloth };
-                TableBasicCloth.Upgrades = new List<Appliance> { TableFancyCloth };
-                TableFancyCloth.Upgrades = new List<Appliance> { TableBar };
-            }
-            */
-
             if (preferenceManager.GetPreference<PreferenceBool>(SHOE_CYCLE).Value)
             {
                 Appliance ShoeRackWellies = GameData.Main.Get<Appliance>(ApplianceReferences.ShoeRackWellies);
@@ -95,17 +77,37 @@ namespace MoreUpgradesFixed
                 ScrubbingBrushProvider.Upgrades = new List<Appliance> { RollingPinProvider };
             }
 
-            if (preferenceManager.GetPreference<PreferenceBool>(MOP_CYCLE).Value)
+            if (preferenceManager.GetPreference<PreferenceInt>(MOP_CYCLE).Value == 0)
             {
                 Appliance MopBucketLasting = GameData.Main.Get<Appliance>(ApplianceReferences.MopBucketLasting);
                 Appliance MopBucketFast = GameData.Main.Get<Appliance>(ApplianceReferences.MopBucketFast);
                 Appliance RobotMop = GameData.Main.Get<Appliance>(ApplianceReferences.RobotMop);
+
                 Appliance RobotBuffer = GameData.Main.Get<Appliance>(ApplianceReferences.RobotBuffer);
+                Appliance FloorBufferStation = GameData.Main.Get<Appliance>(ApplianceReferences.FloorBufferStation);
 
                 MopBucketLasting.Upgrades = new List<Appliance> { MopBucketFast };
                 MopBucketFast.Upgrades = new List<Appliance> { RobotMop };
                 RobotMop.Upgrades = new List<Appliance> { RobotBuffer };
+                FloorBufferStation.Upgrades = new List<Appliance> { RobotBuffer };
                 RobotBuffer.Upgrades = new List<Appliance> { MopBucketLasting };
+            }
+
+            if (preferenceManager.GetPreference<PreferenceInt>(MOP_CYCLE).Value == 1)
+            {
+                Appliance MopBucketLasting = GameData.Main.Get<Appliance>(ApplianceReferences.MopBucketLasting);
+                Appliance MopBucketFast = GameData.Main.Get<Appliance>(ApplianceReferences.MopBucketFast);
+                Appliance RobotMop = GameData.Main.Get<Appliance>(ApplianceReferences.RobotMop);
+
+                Appliance RobotBuffer = GameData.Main.Get<Appliance>(ApplianceReferences.RobotBuffer);
+                Appliance FloorBufferStation = GameData.Main.Get<Appliance>(ApplianceReferences.FloorBufferStation);
+
+                MopBucketLasting.Upgrades = new List<Appliance> { MopBucketFast };
+                MopBucketFast.Upgrades = new List<Appliance> { RobotMop };
+                RobotMop.Upgrades = new List<Appliance> { MopBucketLasting };
+
+                RobotBuffer.Upgrades = new List<Appliance> { FloorBufferStation };
+                FloorBufferStation.Upgrades = new List<Appliance> { RobotBuffer };
             }
         }
 
@@ -119,10 +121,9 @@ namespace MoreUpgradesFixed
             preferenceManager = new PreferenceManager(MOD_GUID);
             preferenceManager.RegisterPreference(new PreferenceBool(WORKSTATION_TO_FREEZER, false));
             preferenceManager.RegisterPreference(new PreferenceBool(COMBINER_TO_PORTIONER, false));
-            //preferenceManager.RegisterPreference(new PreferenceBool(TABLE_CYCLE, false));
             preferenceManager.RegisterPreference(new PreferenceBool(SHOE_CYCLE, false));
             preferenceManager.RegisterPreference(new PreferenceBool(UTILITY_CYCLE, false));
-            preferenceManager.RegisterPreference(new PreferenceBool(MOP_CYCLE, false));
+            preferenceManager.RegisterPreference(new PreferenceInt(MOP_CYCLE, 0));
             preferenceManager.Load();
             preferenceManager.Save();
 
